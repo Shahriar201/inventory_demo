@@ -23,7 +23,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('backend.customer.index');
+        $customers = $this->model->latest();
+        return view('backend.customer.index', compact('customers'));
     }
 
     /**

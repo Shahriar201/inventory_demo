@@ -30,11 +30,31 @@
               <div class="card-header">
                 <h5 class="m-0">Customer</h5>
               </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+              <div class="card-body p-0">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>Update software</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-danger">55%</span></td>
+                      <td><span class="badge bg-danger">55%</span></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
