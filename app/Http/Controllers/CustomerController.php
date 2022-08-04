@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public $model;
+    public $viewDirectory = 'customer::customer';
+    public $route = 'customer';
+    public $dataName = 'Customer';
+
+    public function __construct(Customer $model)
+    {
+        $this->model = $model;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +23,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.customer.index');
     }
 
     /**
