@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -22,7 +23,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Renderable
     {
         $customers = $this->model->all();
         
@@ -34,7 +35,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Renderable
     {
         return view('backend.customer.create');
     }
@@ -56,11 +57,11 @@ class CustomerController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(Request $request): object
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:customers,email,except,id',
             'phone' => 'required',
             'address' => 'required',
         ]);
@@ -93,7 +94,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): Renderable
     {
         $customer = $this->model->findOrFail($id);
         return view('backend.customer.edit', compact('customer'));
@@ -106,9 +107,26 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): object
     {
-        //
+        $customer = $this->model->findOrFail($id);
+        
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:customers,email,'.$customer->id,
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+
+        try {
+            $input = $this->fillableAttributes($request);
+            $customer->update($input);
+
+            return redirect()->route('customer.index')->with('success', $this->dataName . ' Updated Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**

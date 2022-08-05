@@ -29,9 +29,9 @@
             <div class="card">
               <div class="card-header d-flex">
                 <h5 class="m-0">Edit Customer</h5>
-                <a class="btn btn-success btn-sm" style="margin-left: 60%;" href="{{ route('customer.create') }}"><i class="fa fa-list"></i>Customer List</a>
+                <a class="btn btn-success btn-sm" style="margin-left: 60%;" href="{{ route('customer.index') }}"><i class="fa fa-list"></i>Customer List</a>
               </div>
-              {{Form::model($customer, ['route' => 'customer.store', $customer->id, 'method' => 'PUT', 'id' => 'basic-form'])}}
+              {{Form::model($customer, ['route' => ['customer.update', $customer->id], 'method' => 'PUT', 'id' => 'basic-form'])}}
                 <div class="card-body">
                     <div class="form-group">
                         <div class="row">

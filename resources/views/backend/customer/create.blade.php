@@ -29,7 +29,7 @@
             <div class="card">
               <div class="card-header d-flex">
                 <h5 class="m-0">Customer</h5>
-                <a class="btn btn-success btn-sm" style="margin-left: 69%;" href="{{ route('customer.create') }}"><i class="fa fa-list"></i>Customer List</a>
+                <a class="btn btn-success btn-sm" style="margin-left: 69%;" href="{{ route('customer.index') }}"><i class="fa fa-list"></i>Customer List</a>
               </div>
               {{Form::open(['route' => 'customer.store', 'method' => 'POST', 'id' => 'basic-form'])}}
                 <div class="card-body">
