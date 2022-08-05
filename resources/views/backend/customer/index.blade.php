@@ -40,20 +40,31 @@
                       <th>Email</th>
                       <th>Phone</th>
                       <th>Address</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                        </div>
+                    @foreach ($customers as $key => $customer )
+                      <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $customer->name }}</td>
+                        <td>{{ $customer->email }}</td>
+                        <td>{{ $customer->phone }}</td>
+                        <td>{{ $customer->address }}</td>
+                        <td>
+                          <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('customer.edit', $customer->id)}}">
+                              <i class="fa fa-edit">
+
+                              </i>
+                          </a>
+                          <a title="Delete" id="delete" class="btn btn-sm btn-danger" href="{{ route('customer.destroy', $customer->id) }}">
+                              <i class="fa fa-trash">
+
+                              </i>
+                          </a>
                       </td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
