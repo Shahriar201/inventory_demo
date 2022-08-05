@@ -45,9 +45,6 @@
                       <tr class="">
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $category->name }}</td>
-                        <td>{{ $category->email }}</td>
-                        <td>{{ $category->phone }}</td>
-                        <td>{{ $category->address }}</td>
                         <td>
                           <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('category.edit', $category->id)}}">
                               <i class="fa fa-edit"></i>

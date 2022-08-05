@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -45,9 +46,28 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    private function fillableAttributes($request): array
     {
-        dd('Ok');
+        return $request->only(
+            'name'
+        );
+    }
+
+    public function store(Request $request): object
+    {
+        $request->validate([
+            'name' => 'required|unique:categories,name'
+        ]);
+
+        try {
+            $input = $this->fillableAttributes($request);
+            $this->model->create($input);
+
+            return redirect()->route('category.index')->with('success', $this->dataName . ' Added Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
