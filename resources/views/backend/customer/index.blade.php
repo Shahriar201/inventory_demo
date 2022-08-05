@@ -29,7 +29,7 @@
             <div class="card">
               <div class="card-header d-flex">
                 <h5 class="m-0">Customer</h5>
-                <a class="btn btn-success btn-sm" style="margin-left: 69%;" href="#"><i class="fa fa-plus-circle"></i>Add Customer</a>
+                <a class="btn btn-success btn-sm" style="margin-left: 69%;" href="{{ route('customer.create') }}"><i class="fa fa-plus-circle"></i>Add Customer</a>
               </div>
               <div class="card-body p-0">
                 <table class="table table-striped">
