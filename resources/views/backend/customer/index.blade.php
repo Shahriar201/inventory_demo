@@ -45,7 +45,7 @@
                   </thead>
                   <tbody>
                     @foreach ($customers as $key => $customer )
-                      <tr>
+                      <tr class="">
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $customer->name }}</td>
                         <td>{{ $customer->email }}</td>
@@ -53,14 +53,10 @@
                         <td>{{ $customer->address }}</td>
                         <td>
                           <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('customer.edit', $customer->id)}}">
-                              <i class="fa fa-edit">
-
-                              </i>
+                              <i class="fa fa-edit"></i>
                           </a>
                           <a title="Delete" id="delete" class="btn btn-sm btn-danger" href="{{ route('customer.destroy', $customer->id) }}">
-                              <i class="fa fa-trash">
-
-                              </i>
+                              <i class="fa fa-trash"> </i>
                           </a>
                       </td>
                       </tr>

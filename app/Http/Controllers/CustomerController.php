@@ -85,7 +85,10 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
+
+        return redirect()->route('customer.index')->with('success', $this->dataName . ' Deleted successfully!');
     }
 
     /**
@@ -137,6 +140,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        dd($customer);
     }
 }
