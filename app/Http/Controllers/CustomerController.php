@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -43,9 +44,35 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    private function fillableAttributes($request): array
+    {
+        return $request->only(
+            'name',
+            'email',
+            'phone',
+            'address'
+        );
+    }
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+
+        try {
+            $input = $this->fillableAttributes($request);
+            $this->model->create($input);
+
+            return redirect()->route('customer.index')->with('success', ' Customer Added Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**

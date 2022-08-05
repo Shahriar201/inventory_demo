@@ -27,7 +27,16 @@
   <link rel="stylesheet" href="{{ asset('backend/assets') }}/plugins/summernote/summernote-bs4.min.css">
   @yield('css')
 
+  <!-- jQuery -->
+  <script src="{{ asset('backend/assets') }}/plugins/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{ asset('backend/assets') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script src="{{ asset('backend/assets/plugins/toastr/toastr.min.js') }}"></script>
+  <script src="{{ asset('backend/assets/plugins/toastr/toastr.min.css') }}"></script>
   @stack('css')
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -36,6 +45,32 @@
 
   @include('backend.layouts.sidebar')
 
+  @if (session()->has('success'))
+    <script type="text/javascript">
+        $(function() {
+            $.notify("{{ session()->get('success') }}", {
+                globalPosition: 'top right',
+                className: 'success'
+            });
+        });
+
+    </script>
+  @endif
+
+  @if (session()->has('error'))
+      <script type="text/javascript">
+        $(function() {
+            $.notify("{{ session()->get('error') }}", {
+                globalPosition: 'top right',
+                className: 'error'
+            });
+        });
+    </script>
+
+  @endif
+
+  {{-- @include('backend.partials.status') --}}
+
   @yield('content')
 
   @include('backend.layouts.footer')
@@ -43,11 +78,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="{{ asset('backend/assets') }}/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('backend/assets') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
