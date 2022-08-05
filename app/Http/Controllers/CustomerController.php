@@ -95,7 +95,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer = $this->model->findOrFail($id);
+        return view('backend.customer.edit', compact('customer'));
     }
 
     /**
