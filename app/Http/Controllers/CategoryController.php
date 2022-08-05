@@ -76,9 +76,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('category.index')->with('success', $this->dataName . ' Deleted successfully!');
     }
 
     /**
@@ -127,6 +130,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        dd('destroy');
     }
 }
