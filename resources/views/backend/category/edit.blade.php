@@ -31,13 +31,13 @@
                 <h5 class="m-0">Edit Category</h5>
                 <a class="btn btn-success btn-sm" style="margin-left: 60%;" href="{{ route('category.index') }}"><i class="fa fa-list"></i>Category List</a>
               </div>
-              {{Form::model($category, ['route' => ['category.update', $category->id], 'method' => 'PUT', 'id' => 'basic-form'])}}
+              {{ Form::model($category, ['route' => ['category.update', $category->id], 'method' => 'PUT', 'id' => 'basic-form']) }}
                 <div class="card-body">
                     <div class="form-group">
                         <div class="row">
                             <div class="form-group col-md-8">
                                 <label for="name">Name</label>
-                                 {{Form::text('name', null, ['class'=>'form-control', 'id' => 'name', 'placeholder' => 'Enter your name', 'required' => true])}}
+                                 {{ Form::text('name', null, ['class'=>'form-control', 'id' => 'name', 'placeholder' => 'Enter your name', 'required' => true]) }}
                             </div>
                         </div>
                     </div>

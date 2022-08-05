@@ -100,9 +100,23 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id): object
     {
-        //
+        $category = $this->model->findOrFail($id);
+        
+        $request->validate([
+            'name' => 'required|unique:categories,name,'.$category->id
+        ]);
+
+        try {
+            $input = $this->fillableAttributes($request);
+            $category->update($input);
+
+            return redirect()->route('category.index')->with('success', $this->dataName . ' Updated Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
