@@ -37,18 +37,19 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name">Name</label>
-                                {{-- <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                 --}}
-                                 {{Form::text('name', null, ['class'=>'form-control', 'id' => 'name', 'placeholder' => 'Enter name', 'required' => true])}}
+                                 {{Form::text('name', null, ['class'=>'form-control', 'id' => 'name', 'placeholder' => 'Enter your name', 'required' => true])}}
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <label for="email">Email</label>
+                                {{ Form::text('email', null, ['class'=>'form-control', 'id' => 'email', 'placeholder' => 'Enter your email', 'required' => true]) }}
                             </div>
-                            <div class="form-group mb-0">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="terms" class="custom-control-input" id="exampleCheck1">
-                                <label class="custom-control-label" for="exampleCheck1">I agree to the <a href="#">terms of service</a>.</label>
+                            <div class="form-group col-md-6">
+                                <label for="phone">Phone</label>
+                                {{ Form::text('phone', null, ['class'=>'form-control', 'id' => 'phone', 'placeholder' => 'Enter your email', 'required' => true]) }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="address">Address</label>
+                                {{ Form::text('address', null, ['class'=>'form-control', 'id' => 'address', 'placeholder' => 'Enter your address', 'required' => true]) }}
                             </div>
                         </div>
                     </div>
