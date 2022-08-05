@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -21,7 +22,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Renderable
     {
         $categories = $this->model->all();
         
@@ -33,9 +34,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Renderable
     {
-        //
+        return view('backend.category.create');
     }
 
     /**
@@ -46,7 +47,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('Ok');
     }
 
     /**
