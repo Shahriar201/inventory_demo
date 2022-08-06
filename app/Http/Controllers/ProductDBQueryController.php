@@ -82,7 +82,7 @@ class ProductDBQueryController extends Controller
                             'image' =>  $fileName,
             ]);
 
-            return redirect()->route('product.index')->with('success', $this->dataName . ' Added Successfully!');
+            return redirect()->route('productQuery.index')->with('success', $this->dataName . ' Added Successfully!');
         } catch (\Exception $e) {
             Log::error($e);
             dd($e->getMessage());
@@ -107,9 +107,13 @@ class ProductDBQueryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): Renderable
     {
-        //
+        // $product = $this->model->findOrFail($id);
+        $product = DB::table('products')->find($id);
+        $category = DB::table('categories')->pluck('name', 'id');
+
+        return view('backend.product-query.edit', compact('product', 'category'));
     }
 
     /**
