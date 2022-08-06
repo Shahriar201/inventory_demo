@@ -29,8 +29,10 @@
 
   <!-- jQuery -->
   <script src="{{ asset('backend/assets') }}/plugins/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+  <script src="{{ asset('backend/assets/plugins/notify-js/notify.min.js') }}"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('backend/assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ asset('backend/assets/plugins/sweetalert2/sweetalert2.css') }}">
   <!-- jQuery UI 1.11.4 -->
   <script src="{{ asset('backend/assets') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
