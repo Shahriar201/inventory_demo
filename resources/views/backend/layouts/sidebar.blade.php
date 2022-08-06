@@ -45,6 +45,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('productQuery.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Product WIth DB Query
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
