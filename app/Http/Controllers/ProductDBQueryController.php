@@ -123,9 +123,39 @@ class ProductDBQueryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): object
     {
-        //
+        $product =  DB::table('products')->find($id);
+
+        $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'price' => 'required',
+            'image' => 'required',
+        ]);
+
+        try {
+            if ($request->file('image')) {
+                $file = $request->file('image');
+                @unlink(public_path('uploads/product_images/'.$product->image));
+                $fileName = date('YmdHi').$file->getClientOriginalName();
+                $file->move('uploads/product_images/', $fileName);
+                $product['image'] = $fileName;
+            }
+            
+            $product = DB::table('products')->update([
+                            'category_id' => $request->category_id,
+                            'name' => $request->name,
+                            'price' =>  $request->price,
+                            'image' =>  $fileName,
+            ]);
+
+            return redirect()->route('productQuery.index')->with('success', $this->dataName . ' Added Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            dd($e->getMessage());
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
