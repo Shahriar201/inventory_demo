@@ -98,7 +98,15 @@ class ProductDBQueryController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = DB::table('products')->find($id);
+
+        if(file_exists('uploads/product_images/' . $product->image) AND ! empty($product->image)){
+            unlink('uploads/product_images/' . $product->image);
+        }
+
+        $product = DB::table('products')->where('id', $id)->delete();
+
+        return redirect()->route('productQuery.index')->with('success', $this->dataName . ' Deleted successfully!');
     }
 
     /**
