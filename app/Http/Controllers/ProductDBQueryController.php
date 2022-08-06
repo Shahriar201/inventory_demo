@@ -100,7 +100,7 @@ class ProductDBQueryController extends Controller
     {
         $product = DB::table('products')->find($id);
 
-        if(file_exists('uploads/product_images/' . $product->image) AND ! empty($product->image)){
+        if(file_exists('uploads/product_images/' . $product->image) AND ! empty($product->image)) {
             unlink('uploads/product_images/' . $product->image);
         }
 
