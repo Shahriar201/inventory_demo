@@ -60,7 +60,7 @@ class ProductController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(Request $request): object
     {
         $request->validate([
             'category_id' => 'required',
@@ -120,9 +120,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): Renderable
     {
-        //
+        $product = $this->model->findOrFail($id);
+        $category = Category::pluck('name', 'id');
+        return view('backend.product.edit', compact('product', 'category'));
     }
 
     /**

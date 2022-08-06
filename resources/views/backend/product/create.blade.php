@@ -57,7 +57,7 @@
                                 {{-- <input type="file" name="image" class="form-control" id="image" required> --}}
                             </div>
                             <div class="form-group col-md-6">
-                              <img id="showImage" src="" style="width: 150px; height: 160px; border: 1px solid #000;">
+                              <img id="showImage" src="" style="width: 150px; height: 160px; border: 1px solid #000; object-fit: cover;">
                             </div>
                         </div>
                     </div>
