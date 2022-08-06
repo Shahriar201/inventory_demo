@@ -49,12 +49,14 @@
                     @foreach ($products as $key => $product )
                       <tr class="">
                         <td>{{ $key + 1 }}</td>
-                        <td>{{ $product->category_id ?? '' }}</td>
+                        <td>{{ $product['category']['name'] ?? '' }}</td>
                         <td>{{ $product->name ?? '' }}</td>
                         <td>{{ $product->code ?? '' }}</td>
                         <td>{{ $product->total_stock ?? '' }}</td>
                         <td>{{ $product->price ?? '' }}</td>
-                        <td>{{ $product->image ?? '' }}</td>
+                        <td>
+                          <img style="width: 100px; height: 80px; object-fit: cover;" src="{{ (!empty($product->image))?url('public/uploads/product_images/'.$product->image):url('public/uploads/no_image.jpg') }}" alt="Product image">
+                        </td>
                         <td>
                           <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('product.edit', $product->id)}}">
                               <i class="fa fa-edit"></i>
