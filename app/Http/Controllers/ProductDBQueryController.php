@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ProductDBQueryController extends Controller
 {
+    public $model;
+    public $viewDirectory = 'productQuery::product-query';
+    public $route = 'productQuery';
+    public $dataName = 'ProductQuery';
+
+    public function __construct(Product $model)
+    {
+        $this->model = $model;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -41,9 +54,40 @@ class ProductDBQueryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): object
     {
-        //
+        $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'price' => 'required',
+            'image' => 'required',
+        ]);
+
+        $code = rand(1000, 9999);
+
+        try {
+            if ($request->file('image')) {
+                    $file = $request->file('image');
+                    $fileName = date('YmdHi').$file->getClientOriginalName();
+                    $file->move('uploads/product_images/', $fileName);
+                    $product['image'] = $fileName;
+                }
+            
+            $product = DB::table('products')->insert([
+                            'category_id' => $request->category_id,
+                            'name' => $request->name,
+                            'slug' =>  Str::slug($request->name),
+                            'code' =>  $code,
+                            'price' =>  $request->price,
+                            'image' =>  $fileName,
+            ]);
+
+            return redirect()->route('product.index')->with('success', $this->dataName . ' Added Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            dd($e->getMessage());
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
