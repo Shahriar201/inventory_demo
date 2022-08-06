@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -38,7 +40,7 @@ class ProductController extends Controller
     public function create(): Renderable
     {
         $category = Category::pluck('name', 'id');
-        
+
         return view('backend.product.create', compact('category'));
     }
 
@@ -48,9 +50,57 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    private function fillableAttributes($request): array
+    {
+        return $request->only(
+            'category_id',
+            'name',
+            'price',
+            'image',
+        );
+    }
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'price' => 'required',
+            'image' => 'required',
+        ]);
+
+        $code = rand(1000, 9999);
+        
+        try {
+            $product = new Product();
+            $product->category_id = $request->category_id;
+            $product->name = $request->name;
+            $product->slug = Str::slug($request->name);
+            $product->code = $code;
+            $product->price = $request->price;
+
+            // $this->model->create([
+            //     'category_id' => $request->category_id,
+            //     'name' => $request->name,
+            //     'slug' => Str::slug($request->name),
+            //     'code' => Str::rand(1000, 9999),
+            //     'price' => $request->price,
+            // ]);
+
+            if ($request->file('image')) {
+                    $file = $request->file('image');
+                    $fileName = date('YmdHi').$file->getClientOriginalName();
+                    $file->move('public/uploads/product_images/', $fileName);
+                    $product['image'] = $fileName;
+                }
+            $product->save();
+
+            return redirect()->route('product.index')->with('success', $this->dataName . ' Added Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            dd($e->getMessage());
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**

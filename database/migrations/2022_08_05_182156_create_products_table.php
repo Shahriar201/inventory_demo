@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('code');
-            $table->bigInteger('total_stock');
+            $table->bigInteger('total_stock')->nullable();
             $table->double('price');
             $table->string('image');
             $table->timestamps();

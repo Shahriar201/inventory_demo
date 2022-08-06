@@ -28,10 +28,10 @@
           <div class="col-lg-8">
             <div class="card">
               <div class="card-header d-flex">
-                <h5 class="m-0">Product</h5>
-                <a class="btn btn-success btn-sm" style="margin-left: 69%;" href="{{ route('product.index') }}"><i class="fa fa-list"></i>Product List</a>
+                <h5 class="m-0">Add Product</h5>
+                <a class="btn btn-success btn-sm" style="margin-left: 65%;" href="{{ route('product.index') }}"><i class="fa fa-list"></i>Product List</a>
               </div>
-              {{Form::open(['route' => 'product.store', 'method' => 'POST', 'id' => 'basic-form'])}}
+              {{Form::open(['route' => 'product.store', 'method' => 'POST', 'id' => 'basic-form', 'files'=>true])}}
                 <div class="card-body">
                     <div class="form-group">
                         <div class="row">
@@ -54,10 +54,10 @@
                             <div class="form-group col-md-6">
                                 <label for="image">Image</label>
                                 {{ Form::file('image', ['class'=>'form-control', 'id' => 'image', 'required' => true]) }}
+                                {{-- <input type="file" name="image" class="form-control" id="image" required> --}}
                             </div>
                             <div class="form-group col-md-6">
-                              <img id="showImage" src=""
-                              style="width: 150px; height: 160px; border: 1px solid #000;">
+                              <img id="showImage" src="" style="width: 150px; height: 160px; border: 1px solid #000;">
                             </div>
                         </div>
                     </div>
