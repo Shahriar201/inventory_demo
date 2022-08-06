@@ -55,7 +55,7 @@
                         <td>{{ $product->total_stock ?? '' }}</td>
                         <td>{{ $product->price ?? '' }}</td>
                         <td>
-                          <img style="width: 100px; height: 80px; object-fit: cover;" src="{{ (!empty($product->image))?url('public/uploads/product_images/'.$product->image):url('public/uploads/no_image.jpg') }}" alt="Product image">
+                          <img style="width: 100px; height: 80px; object-fit: cover;" src="{{ (!empty($product->image))?url('uploads/product_images/'.$product->image):url('uploads/no_image.jpg') }}" alt="Product image">
                         </td>
                         <td>
                           <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('product.edit', $product->id)}}">

@@ -57,7 +57,7 @@
                             {{-- <input type="file" name="image" class="form-control" id="image" required> --}}
                         </div>
                         <div class="form-group col-md-6">
-                          <img id="showImage" src="{{ (!empty($product->image))?url('public/uploads/product_images/'.$product->image):url('uploads/no_image.jpg') }}"
+                          <img id="showImage" src="{{ (!empty($product->image))?url('uploads/product_images/'.$product->image):url('uploads/no_image.jpg') }}"
                           style="width: 150px; height: 160px; border: 1px solid #000; object-fit: cover;">
                         </div>
                     </div>
