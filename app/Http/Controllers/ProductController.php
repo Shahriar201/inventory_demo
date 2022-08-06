@@ -111,7 +111,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        if(file_exists('public/uploads/product_images/' . $product->image) AND ! empty($product->image)){
+            unlink('public/uploads/product_images/' . $product->image);
+        }
+        $product->delete();
+
+        return redirect()->route('product.index')->with('success', $this->dataName . ' Deleted successfully!');
     }
 
     /**
@@ -151,7 +157,7 @@ class ProductController extends Controller
 
             if ($request->file('image')) {
                     $file = $request->file('image');
-                    @unlink(public_path('uploads/product_images/'.$product->image));
+                    @unlink(public_path('public/uploads/product_images/'.$product->image));
                     $fileName = date('YmdHi').$file->getClientOriginalName();
                     $file->move('public/uploads/product_images/', $fileName);
                     $product['image'] = $fileName;
