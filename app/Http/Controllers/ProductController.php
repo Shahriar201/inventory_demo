@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -34,9 +35,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Renderable
     {
-        //
+        $category = Category::pluck('name', 'id');
+        
+        return view('backend.product.create', compact('category'));
     }
 
     /**
