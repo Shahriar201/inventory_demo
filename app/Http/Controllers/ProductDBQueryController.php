@@ -19,7 +19,7 @@ class ProductDBQueryController extends Controller
                         ->select('product.id', 'product.name', 'product.slug', 'product.code', 'product.total_stock', 'product.price', 'product.image', 'category.name as category_id')
                         ->leftJoin('categories as category', 'product.category_id', 'category.id')
                         ->get();
-                        
+
         return view('backend.product-query.index', compact('products'));
     }
 
@@ -28,9 +28,11 @@ class ProductDBQueryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Renderable
     {
-        //
+        $category = DB::table('categories')->pluck('name', 'id');
+
+        return view('backend.product-query.create', compact('category'));
     }
 
     /**
