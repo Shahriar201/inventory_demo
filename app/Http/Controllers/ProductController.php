@@ -134,9 +134,36 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): object
     {
-        //
+        $product = $this->model->findOrFail($id);
+
+        $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'price' => 'required'
+        ]);
+
+        try {
+            $product->category_id = $request->category_id;
+            $product->name = $request->name;
+            $product->price = $request->price;
+
+            if ($request->file('image')) {
+                    $file = $request->file('image');
+                    @unlink(public_path('uploads/product_images/'.$product->image));
+                    $fileName = date('YmdHi').$file->getClientOriginalName();
+                    $file->move('public/uploads/product_images/', $fileName);
+                    $product['image'] = $fileName;
+                }
+            $product->save();
+
+            return redirect()->route('product.index')->with('success', $this->dataName . ' Added Successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+            dd($e->getMessage());
+            return \redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**

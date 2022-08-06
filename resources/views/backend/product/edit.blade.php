@@ -31,7 +31,7 @@
                 <h5 class="m-0">Edit Product</h5>
                 <a class="btn btn-success btn-sm" style="margin-left: 60%;" href="{{ route('customer.index') }}"><i class="fa fa-list"></i>Product List</a>
               </div>
-              {{Form::model($product, ['route' => ['customer.update', $product->id], 'method' => 'PUT', 'id' => 'basic-form', 'files'=>true])}}
+              {{Form::model($product, ['route' => ['product.update', $product->id], 'method' => 'PUT', 'id' => 'basic-form', 'files'=>true])}}
                 <div class="card-body">
                     <div class="form-group">
                       <div class="row">
@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="image">Image</label>
-                            {{ Form::file('image', ['class'=>'form-control', 'id' => 'image', 'required' => true]) }}
+                            {{ Form::file('image', ['class'=>'form-control', 'id' => 'image']) }}
                             {{-- <input type="file" name="image" class="form-control" id="image" required> --}}
                         </div>
                         <div class="form-group col-md-6">
