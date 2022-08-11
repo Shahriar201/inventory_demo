@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDBQueryController;
+use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,4 @@ Route::resource('customer', CustomerController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);
 Route::resource('productQuery', ProductDBQueryController::class);
+Route::resource('fileUpload', FileUploadController::class);
