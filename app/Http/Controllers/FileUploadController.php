@@ -23,7 +23,7 @@ class FileUploadController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.file-upload.create');
     }
 
     /**

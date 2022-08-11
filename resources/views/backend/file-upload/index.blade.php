@@ -36,7 +36,7 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Customer Name</th>
+                      <th>File Name</th>
                       <th>Category</th>
                       <th>File</th>
                       <th>Action</th>
