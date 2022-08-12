@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\SendEmail;
 
 class CustomerController extends Controller
 {
@@ -69,6 +70,15 @@ class CustomerController extends Controller
         try {
             $input = $this->fillableAttributes($request);
             $this->model->create($input);
+
+            $data = [
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'phone'     => $request->phone,
+                'address'   => $request->address
+            ];
+
+            SendEmail::dispatch($data);
 
             return redirect()->route('customer.index')->with('success', ' Customer Added Successfully!');
         } catch (\Exception $e) {
