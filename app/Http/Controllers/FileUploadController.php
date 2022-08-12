@@ -47,12 +47,17 @@ class FileUploadController extends Controller
                 $file->move('uploads/file/', $fileName);
                 $input['file'] = $fileName;
             }
-            // dd($input);
             $file = File::create($input);
-            // dd($file);
+
+            $uploadCSVInput = [
+                'file' => public_path().'/uploads/file/'.$file->file,
+            ];
+
             return redirect()->back()->with('success', 'File inserted successfully');
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (\Exception $e) {
+            Log::error($e);
+            dd($e->getMessage());
+            return \redirect()->back()->with('error', $e->getMessage());
         }
     }
 
