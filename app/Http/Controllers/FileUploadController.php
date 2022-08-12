@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Jobs\FileUploadCSV;
 use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
@@ -52,6 +53,8 @@ class FileUploadController extends Controller
             $uploadCSVInput = [
                 'file' => public_path().'/uploads/file/'.$file->file,
             ];
+
+            FileUploadCSV::dispatch($uploadCSVInput);
 
             return redirect()->back()->with('success', 'File inserted successfully');
         } catch (\Exception $e) {
