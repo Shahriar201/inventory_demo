@@ -8,10 +8,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Services\ProcessCsvData;
+use Illuminate\Support\Facades\Log;
 
 class FileUploadCSV implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $data;
 
     /**
      * Create a new job instance.
@@ -30,10 +34,14 @@ class FileUploadCSV implements ShouldQueue
      */
     public function handle()
     {
-        try {
-            // $file_import_id = $this->data['']
-        } catch (\Throwable $th) {
-            //throw $th;
+        try {            
+            // Process CSV data
+            $fileProcess = new ProcessCsvData();
+            $response = $fileProcess->importCSVData($this->data);
+        } catch (\Exception $e) {
+            Log::error($e);
+            dd($e->getMessage());
+            return \redirect()->back()->with('error', $e->getMessage());
         }
     }
 }
