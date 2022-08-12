@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use Illuminate\Http\Request;
 
 class FileUploadController extends Controller
@@ -34,7 +35,25 @@ class FileUploadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'file'=> 'required|mimes:xlsx,xls'
+        ]);
+
+        try {
+            $input = [];
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $fileName = date('YmdHi').$file->getClientOriginalName();
+                $file->move('uploads/file/', $fileName);
+                $input['file'] = $fileName;
+            }
+            // dd($input);
+            $file = File::create($input);
+            // dd($file);
+            return redirect()->back()->with('success', 'File inserted successfully');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**

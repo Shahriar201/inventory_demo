@@ -31,21 +31,13 @@
                 <h5 class="m-0">File Upload</h5>
                 <a class="btn btn-success btn-sm" style="margin-left: 69%;" href="{{ route('fileUpload.index') }}"><i class="fa fa-list"></i>File List</a>
               </div>
-              {{Form::open(['route' => 'fileUpload.store', 'method' => 'POST', 'id' => 'basic-form'])}}
+              {{Form::open(['route' => 'fileUpload.store', 'method' => 'POST', 'id' => 'basic-form', 'enctype' => 'multipart/form-data'])}}
                 <div class="card-body">
                     <div class="form-group">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="name">File Name</label>
-                                 {{Form::text('name', null, ['class'=>'form-control', 'id' => 'name', 'placeholder' => 'Enter your name', 'required' => true])}}
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="category_id">Category</label>
-                                {{ Form::select('category_id', [], null, ['class'=>'form-control', 'id' => 'category_id', 'placeholder' => 'Select Category', 'required' => true]) }}
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="phone">File</label>
-                                {{ Form::text('phone', null, ['class'=>'form-control', 'id' => 'phone', 'placeholder' => 'Enter your email', 'required' => true]) }}
+                                <label for="phone">File XLS File</label>
+                                {{Form::file('file', ['class'=>'form-control', 'id' => 'file', 'placeholder' => 'Enter file', 'accept' => '.xls,.xlsx', 'required' => true])}}
                             </div>
                         </div>
                     </div>
